@@ -10,6 +10,6 @@ _Noreturn void core(void *args) {
 
     vTaskResume(netContext.taskId);
     while(1) {
-
+        vTaskDelay(portMAX_DELAY);
     }
 }

@@ -14,6 +14,7 @@ NetInterface *net_interface_get(NET_INTERFACE_IDX idx) {
 int net_init(void) {
     error_t error = netInit();
     if (error) return error;
+    vTaskSuspend(netContext.taskId);
 
     //loopback ----------------------------------------------------------------
     NetInterface *interface = net_interface_get(NET_INTERFACE_LO);
@@ -56,6 +57,5 @@ int net_init(void) {
 //    ipv4StringToAddr("0.0.0.0", &addr);
 //    ipv4SetDnsServer(interface, 1, addr);
 
-    vTaskSuspend(netContext.taskId);
     return 0;
 }
