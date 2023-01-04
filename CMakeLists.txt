@@ -12,9 +12,14 @@ add_definitions(-DSTM32U585xx)
 add_link_options(-Wl,-Map=${PROJECT_BINARY_DIR}/${PROJECT_NAME}.map)
 
 include_directories(src)
-set(SOURCES ${SOURCES} src/main.c)
+set(SOURCES ${SOURCES} src/main.c src/freertos_kernel_misc.c src/core.c)
 
 include(modules)
+#FreeRTOS ----------------------------------------------------------------------
+set(FREERTOS_CONFIG_FILE_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/src" CACHE STRING "")
+set(FREERTOS_PORT "GCC_ARM_CM33_NTZ_NONSECURE" CACHE STRING "")
+set(FREERTOS_HEAP "5" CACHE STRING "")
+module(freertos_kernel GIT_REPOSITORY git@github.com:FreeRTOS/FreeRTOS-Kernel.git GIT_TAG 6d65558ba01141d7c50ff6f93a4054cc5f16940e)
 modules_ready()
 
 add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT})
