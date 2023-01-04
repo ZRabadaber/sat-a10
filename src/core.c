@@ -3,8 +3,12 @@
 //
 
 #include "core.h"
+#include "net.h"
 
 _Noreturn void core(void *args) {
+    net_init();
+
+    vTaskResume(netContext.taskId);
     while(1) {
 
     }
