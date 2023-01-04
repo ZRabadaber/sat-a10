@@ -1,0 +1,7 @@
+.idea
+.vscode
+.settings
+build
+cmake-build-*
+components
+*.launch
