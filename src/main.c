@@ -18,7 +18,7 @@ HeapRegion_t xHeapRegions[] = {
         {NULL,       0}
 };
 
-void main(void) {
+int main(void) {
     HAL_Init();
     SystemClock_Config();
     PeriphCommonClock_Config();
