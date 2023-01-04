@@ -3,7 +3,7 @@
 //
 
 #include "net.h"
-//#include "drivers/usb_rndis/rndis_driver.h"
+#include "drivers/usb_rndis/rndis_driver.h"
 #include <drivers/loopback/loopback_driver.h>
 
 NetInterface *net_interface_get(NET_INTERFACE_IDX idx) {
@@ -26,36 +26,27 @@ int net_init(void) {
     error = netConfigInterface(interface);
     if (error) return error;
 
-//    //usb ---------------------------------------------------------------------
-//    interface = net_interface_get(NET_INTERFACE_USB);
-//    if (!interface) return -1;
-//    error = netSetInterfaceName(interface, "usb");
-//    if (error) return error;
-//    error = netSetDriver(interface, &rndisDriver);
-//    if (error) return error;
-//    const unsigned char eth0_mac[6] = {
-//            0x00,0x02,0x02,0x03,0x00,0x00
-//    };
-//    netSetMacAddr(interface, (const MacAddr *)eth0_mac);
-//    error = netConfigInterface(interface);
-//    if (error) return error;
-//
-//    //usb ip-address ----------------------------------------------------------
-//    Ipv4Addr addr;
-//    //Set IPv4 host address
-//    ipv4StringToAddr("192.168.7.1", &addr);
-//    ipv4SetHostAddr(interface, addr);
-//    //Set subnet mask
-//    ipv4StringToAddr("255.255.255.0", &addr);
-//    ipv4SetSubnetMask(interface, addr);
-//    //Set default gateway
-//    ipv4StringToAddr("0.0.0.0", &addr);
-//    ipv4SetDefaultGateway(interface, addr);
-//    //Set primary and secondary DNS servers
-//    ipv4StringToAddr("0.0.0.0", &addr);
-//    ipv4SetDnsServer(interface, 0, addr);
-//    ipv4StringToAddr("0.0.0.0", &addr);
-//    ipv4SetDnsServer(interface, 1, addr);
+    //usb ---------------------------------------------------------------------
+    interface = net_interface_get(NET_INTERFACE_USB);
+    if (!interface) return -1;
+    error = netSetInterfaceName(interface, "usb");
+    if (error) return error;
+    error = netSetDriver(interface, &rndisDriver);
+    if (error) return error;
+    const unsigned char _mac[6] = {
+            0x20, 0x89, 0x84, 0x6A, 0x96, 0x00
+    };
+    netSetMacAddr(interface, (const MacAddr *) _mac);
+    error = netConfigInterface(interface);
+    if (error) return error;
+
+    Ipv4Addr addr;
+    //Set IPv4 host address
+    ipv4StringToAddr("192.168.7.1", &addr);
+    ipv4SetHostAddr(interface, addr);
+    //Set subnet mask
+    ipv4StringToAddr("255.255.255.0", &addr);
+    ipv4SetSubnetMask(interface, addr);
 
     return 0;
 }

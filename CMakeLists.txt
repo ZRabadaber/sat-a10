@@ -12,7 +12,7 @@ add_definitions(-DSTM32U585xx)
 add_link_options(-Wl,-Map=${PROJECT_BINARY_DIR}/${PROJECT_NAME}.map)
 
 include_directories(src)
-set(SOURCES ${SOURCES} src/main.c src/freertos_kernel_misc.c src/core.c src/net.c)
+set(SOURCES ${SOURCES} src/main.c src/freertos_kernel_misc.c src/core.c src/net.c src/usbd_conf.c)
 
 include(modules)
 
@@ -60,8 +60,16 @@ file(GLOB_RECURSE SRC LIST_DIRECTORIES false ${CycloneTCP_SOURCE_DIR}/dhcp/*.c)
 set(SOURCES ${SOURCES} ${SRC})
 file(GLOB_RECURSE SRC LIST_DIRECTORIES false ${CycloneTCP_SOURCE_DIR}/drivers/loopback/*.c)
 set(SOURCES ${SOURCES} ${SRC})
-#file(GLOB_RECURSE SRC LIST_DIRECTORIES false ${CycloneTCP_SOURCE_DIR}/drivers/usb_rndis/*.c)
-#set(SOURCES ${SOURCES} ${SRC})
+file(GLOB_RECURSE SRC LIST_DIRECTORIES false ${CycloneTCP_SOURCE_DIR}/drivers/usb_rndis/*.c)
+set(SOURCES ${SOURCES} ${SRC})
+
+#USB Device --------------------------------------------------------------------
+module(stm32_usb_device_lib GIT_REPOSITORY git@github.com:STMicroelectronics/stm32_mw_usb_device.git GIT_TAG 2022e75b01a499b17acd17d28691b1ed5bbef2dc)
+module_no_build(stm32_usb_device_lib)
+include_directories(${stm32_usb_device_lib_SOURCE_DIR}/Core/Inc)
+file(GLOB_RECURSE SRC LIST_DIRECTORIES false ${stm32_usb_device_lib_SOURCE_DIR}/Core/Src/*.c)
+list(FILTER SRC EXCLUDE REGEX "^.*template.c$")
+set(SOURCES ${SOURCES} ${SRC})
 
 modules_ready()
 
