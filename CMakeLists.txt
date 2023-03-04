@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 include(cortex_m33)
 
 project(sat-a10 C CXX ASM)
@@ -73,5 +75,5 @@ set(SOURCES ${SOURCES} ${SRC})
 
 modules_ready()
 
-add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT})
+add_executable(${PROJECT_NAME}.elf ${cube_SOURCES} ${SOURCES} ${LINKER_SCRIPT})
 target_link_libraries(${PROJECT_NAME}.elf ${MODULES})
