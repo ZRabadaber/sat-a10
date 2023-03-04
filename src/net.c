@@ -6,6 +6,8 @@
 #include "drivers/usb_rndis/rndis_driver.h"
 #include <drivers/loopback/loopback_driver.h>
 
+DhcpServerContext dhcpContext;
+
 NetInterface *net_interface_get(NET_INTERFACE_IDX idx) {
     if (idx >= NET_INTERFACE_COUNT) return 0;
     return &netInterface[idx];
@@ -47,6 +49,20 @@ int net_init(void) {
     //Set subnet mask
     ipv4StringToAddr("255.255.255.0", &addr);
     ipv4SetSubnetMask(interface, addr);
+
+    DhcpServerSettings settings;
+    dhcpServerGetDefaultSettings(&settings);
+    settings.interface = interface;
+    //Lowest and highest IP addresses in the pool that are available
+    //for dynamic address assignment
+    settings.ipAddrRangeMin = IPV4_ADDR(192,168,7,2);
+    settings.ipAddrRangeMax = IPV4_ADDR(192,168,7,3);
+    //Subnet mask
+    settings.subnetMask = IPV4_ADDR(255,255,255,0);
+    //Default gateway
+    settings.defaultGateway = IPV4_UNSPECIFIED_ADDR;
+    dhcpServerInit(&dhcpContext, &settings);
+    dhcpServerStart(&dhcpContext);
 
     return 0;
 }
