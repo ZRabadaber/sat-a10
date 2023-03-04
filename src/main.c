@@ -23,8 +23,9 @@ int main(void) {
     SystemClock_Config();
     PeriphCommonClock_Config();
 
+    __HAL_RCC_PWR_CLK_ENABLE();
     HAL_PWREx_DisableUCPDDeadBattery();
-    if (HAL_PWREx_ConfigSupply(PWR_SMPS_SUPPLY) != HAL_OK) {
+    if (HAL_PWREx_ConfigSupply(PWR_LDO_SUPPLY) != HAL_OK) {
         Error_Handler();
     }
 
