@@ -221,7 +221,7 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev) {
     pdev->pData = &hpcd_USB_OTG_FS;
 
     MX_USB_OTG_FS_PCD_Init();
-    HAL_PCDEx_SetRxFiFo(&hpcd_USB_OTG_FS, 0x100);
+    HAL_PCDEx_SetRxFiFo(&hpcd_USB_OTG_FS, 0x80);
     HAL_PCDEx_SetTxFiFo(&hpcd_USB_OTG_FS, 0, 0x40);
     HAL_PCDEx_SetTxFiFo(&hpcd_USB_OTG_FS, 1, 0x40);
     HAL_PCDEx_SetTxFiFo(&hpcd_USB_OTG_FS, 2, 0x40);
