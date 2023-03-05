@@ -66,7 +66,7 @@ file(GLOB_RECURSE SRC LIST_DIRECTORIES false ${CycloneTCP_SOURCE_DIR}/drivers/us
 set(SOURCES ${SOURCES} ${SRC})
 
 #USB Device --------------------------------------------------------------------
-module(stm32_usb_device_lib GIT_REPOSITORY git@github.com:STMicroelectronics/stm32_mw_usb_device.git GIT_TAG 2022e75b01a499b17acd17d28691b1ed5bbef2dc)
+module(stm32_usb_device_lib GIT_REPOSITORY git@github.com:rlt-ru/stm32_mw_usb_device.git GIT_TAG da8cb73d387da47c6b52c7b9ff4d9fdf98f59b90)
 module_no_build(stm32_usb_device_lib)
 include_directories(${stm32_usb_device_lib_SOURCE_DIR}/Core/Inc)
 file(GLOB_RECURSE SRC LIST_DIRECTORIES false ${stm32_usb_device_lib_SOURCE_DIR}/Core/Src/*.c)
