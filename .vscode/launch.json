@@ -1,0 +1,20 @@
+{
+    // Используйте IntelliSense, чтобы узнать о возможных атрибутах.
+    // Наведите указатель мыши, чтобы просмотреть описания существующих атрибутов.
+    // Для получения дополнительной информации посетите: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "sat-a10.elf",
+            "cwd": "${workspaceRoot}",
+            "runToEntryPoint": "main",
+            "executable": "${workspaceRoot}/build/sat-a10.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "configFiles": [
+                "${workspaceRoot}/openocd.cfg"
+            ]
+        }
+    ]
+}
